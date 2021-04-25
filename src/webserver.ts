@@ -73,10 +73,10 @@ router.post("/api/v1/execute", async (context: Context) => {
     value["state"]["cycles"] += 11; // 11 cycles for performed ret
 
     // Push PC high byte
-    const lowBytePull = fetch(`${READ_MEMORY_API}?address=${value["state"]["stackPointer"]}`);
+    const lowBytePull = fetch(`${READ_MEMORY_API}?id=${value["id"]}&address=${value["state"]["stackPointer"]}`);
     value["state"]["stackPointer"] += 1;
     if (value["state"]["stackPointer"] > 0xFFF) value["state"]["stackPointer"] -= 0xFFFF;
-    const highBytePull = fetch(`${READ_MEMORY_API}?address=${value["state"]["stackPointer"]}`);
+    const highBytePull = fetch(`${READ_MEMORY_API}?id=${value["id"]}&address=${value["state"]["stackPointer"]}`);
     value["state"]["stackPointer"] += 1;
     if (value["state"]["stackPointer"] > 0xFFF) value["state"]["stackPointer"] -= 0xFFFF;
 
