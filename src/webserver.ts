@@ -75,10 +75,10 @@ router.post("/api/v1/execute", async (context: Context) => {
     // Push PC high byte
     const lowBytePull = fetch(`${READ_MEMORY_API}?id=${value["id"]}&address=${value["state"]["stackPointer"]}`);
     value["state"]["stackPointer"] += 1;
-    if (value["state"]["stackPointer"] > 0xFFF) value["state"]["stackPointer"] -= 0xFFFF;
+    if (value["state"]["stackPointer"] > 0xFFFF) value["state"]["stackPointer"] -= 0xFFFF;
     const highBytePull = fetch(`${READ_MEMORY_API}?id=${value["id"]}&address=${value["state"]["stackPointer"]}`);
     value["state"]["stackPointer"] += 1;
-    if (value["state"]["stackPointer"] > 0xFFF) value["state"]["stackPointer"] -= 0xFFFF;
+    if (value["state"]["stackPointer"] > 0xFFFF) value["state"]["stackPointer"] -= 0xFFFF;
 
     const responses = await Promise.all([lowBytePull, highBytePull]);
     value["state"]["programCounter"] = parseInt(await responses[0].text(), 10) | (parseInt(await responses[1].text(), 10) << 8);
