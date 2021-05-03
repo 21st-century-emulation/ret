@@ -28,25 +28,25 @@ router.post("/api/v1/execute", async (context: Context) => {
 
   let flag = true;
   switch (value["opcode"]) {
-    case 0xC1: // RNZ
+    case 0xC0: // RNZ
       flag = !value["state"]["flags"]["zero"];
       break;
     case 0xC8: // RZ
       flag = value["state"]["flags"]["zero"];
       break;
-    case 0xD1: // RNC
+    case 0xD0: // RNC
       flag = !value["state"]["flags"]["carry"];
       break;
     case 0xD8: // RC
       flag = value["state"]["flags"]["carry"];
       break;
-    case 0xE1: // RPO
+    case 0xE0: // RPO
       flag = !value["state"]["flags"]["parity"];
       break;
     case 0xE8: // RPE
       flag = value["state"]["flags"]["parity"];
       break;
-    case 0xF1: // RP
+    case 0xF0: // RP
       flag = !value["state"]["flags"]["sign"];
       break;
     case 0xF8: // RM
