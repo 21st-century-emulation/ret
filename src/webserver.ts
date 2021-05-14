@@ -79,8 +79,8 @@ router.post("/api/v1/execute", async (context: Context) => {
     value["state"]["stackPointer"] = (value["state"]["stackPointer"] + 1) & 0xFFFF;
 
     const responses = await Promise.all([lowBytePull, highBytePull]);
-    value["state"]["programCounter"] = parseInt(await responses[0].text(), 10) | (parseInt(await responses[1].text(), 10) << 8);
-  
+    const data = await Promise.all([responses[0].text(), responses[1].text()]);
+    value["state"]["programCounter"] = parseInt(data[0], 10) | (parseInt(data[1], 10) << 8);  
   }
 
   context.response.status = 200;
